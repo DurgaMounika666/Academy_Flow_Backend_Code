@@ -601,6 +601,15 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// When deploying to Vercel, the app runs as a serverless function. We must not
+// call listen() or run seedAllData() on every cold start. Vercel automatically sets process.env.VERCEL.
+if (!process.env.VERCEL) {
+  startServer();
+} else {
+  // On Vercel, just establish the database connection asynchronously.
+  connectDB().catch((err) => {
+    console.error("Database connection failed on Vercel:", err);
+  });
+}
 
 module.exports = app;
