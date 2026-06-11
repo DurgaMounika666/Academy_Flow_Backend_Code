@@ -40,6 +40,7 @@ const app = express();
 app.use(helmet());
 const allowedOrigins = new Set([
   config.frontendUrl,
+  "https://academy-flow-frontend-code.vercel.app",
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:3002",
